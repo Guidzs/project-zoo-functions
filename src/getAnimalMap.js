@@ -91,18 +91,25 @@ const sexAndSorted = ({ sex: s1, sorted: sort1 }) => {
   return result;
 };
 
+const getAnimalMap2 = (opt) => {
+  switch (true) {
+  case !Object.keys(opt).includes('sex'):
+    return sorted(opt);
+  case !Object.keys(opt).length > 2:
+    return sex(opt);
+  default:
+    return sexAndSorted(opt);
+  }
+};
+
 function getAnimalMap(options) {
   switch (true) {
   case !options || !Object.keys(options).includes('includeNames'):
     return allSpecies();
   case Object.keys(options).length === 1:
     return nameOnly();
-  case !Object.keys(options).includes('sex'):
-    return sorted(options);
-  case !Object.keys(options).length > 2:
-    return sex(options);
   default:
-    return sexAndSorted(options);
+    return getAnimalMap2(options);
   }
 }
 
